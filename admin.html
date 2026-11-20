@@ -2,7 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F8F9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E1113" media="(prefers-color-scheme: dark)">
   <title>后台管理与简历智能导入中心 - 赵铖城</title>
   <link rel="stylesheet" href="css/style.css">
   
@@ -162,6 +164,20 @@
       color: var(--success-color);
       display: block;
     }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      body { padding: 0 0 40px; }
+      .admin-container { border-radius: 0; }
+      .admin-topbar { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 18px; }
+      .admin-panel { padding: 20px 16px; }
+      .alert-wrap { padding: 0 16px !important; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .admin-action-bar { flex-direction: column; gap: 12px; padding: 14px 16px; }
+      .admin-action-bar .btn { width: 100%; }
+      .entry-card { padding: 14px; }
+      .entry-delete-btn { top: 10px; right: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -209,7 +225,7 @@
     </div>
 
     <!-- 提示栏 -->
-    <div style="padding: 0 36px; margin-top: 20px;">
+    <div class="alert-wrap" style="padding: 0 36px; margin-top: 20px;">
       <div id="status-alert" class="alert-banner"></div>
     </div>
 

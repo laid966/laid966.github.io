@@ -166,7 +166,8 @@ a:hover { text-decoration: underline; }
 .mobile-nav {
   display: none;
   position: fixed;
-  bottom: 20px; left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translateX(-50%);
   z-index: 200;
   background: var(--surface);
   backdrop-filter: blur(16px);
@@ -215,6 +216,8 @@ a:hover { text-decoration: underline; }
   gap: 56px;
   align-items: center;
 }
+
+.hero-text { min-width: 0; overflow-wrap: break-word; }
 
 .hero-portrait { display: flex; justify-content: center; }
 
@@ -482,9 +485,14 @@ a:hover { text-decoration: underline; }
 /* ==========================================================================
    响应式
    ========================================================================== */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 260px; gap: 36px; }
+}
+
 @media (max-width: 860px) {
   .nav-links { display: none; }
-  .mobile-nav { display: flex; }
+  .mobile-nav { display: flex; max-width: calc(100vw - 32px); overflow-x: auto; }
   .highlights-bar { grid-template-columns: repeat(2, 1fr); }
   .project-grid { grid-template-columns: minmax(0, 1fr); }
   .skills-grid { grid-template-columns: 1fr; }
@@ -493,4 +501,29 @@ a:hover { text-decoration: underline; }
   .hero-portrait { order: -1; }
   .portrait-frame { max-width: 250px; margin: 0 auto; width: 100%; }
   .site-footer { padding-bottom: 120px; }
+
+  /* 触控与窄屏优化 */
+  .card-header-row { flex-wrap: wrap; }
+  .timeline-card { padding: 20px; }
+  .modal-container { padding: 24px 20px; }
+  .section-title { font-size: 1.6rem; }
+  .line-divider { margin: 48px auto; }
+  .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
+  .edu-logo-chip img { height: 28px; }
+  .contact-card { padding: 26px 18px; }
+  .nav-link, .tab-btn { padding: 8px 14px; }
+}
+
+@media (max-width: 480px) {
+  .highlights-bar { gap: 8px; }
+  .highlight-item { padding: 12px; }
+  .highlight-value { font-size: 0.9rem; }
+  .hero-meta { gap: 6px; }
+  .meta-pill { font-size: 0.74rem; padding: 3px 10px; }
+  .brand-name { font-size: 0.92rem; }
+  .header-actions .btn-sm { padding: 6px 10px; font-size: 0.78rem; }
+  .portrait-frame { max-width: 210px; }
+  .project-card { padding: 18px; }
+  .skill-category-card { padding: 18px; }
+  .bullet-points li { font-size: 0.86rem; }
 }
