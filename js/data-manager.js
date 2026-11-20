@@ -3,9 +3,9 @@
  * 优先从 localStorage 读取数据，若无则使用 site-data.js 默认数据
  * 提供导入解析器（支持 LinkedIn、大厂简历纯文本、JSON 格式）、本地保存与重置
  */
-const STORAGE_KEY = "ZC_PORTFOLIO_SITE_DATA_V1";
+window.STORAGE_KEY = "ZC_PORTFOLIO_SITE_DATA_V1";
 
-const DataManager = {
+window.DataManager = {
   // 获取当前数据（优先 LocalStorage，降级 DEFAULT_SITE_DATA）
   getData() {
     try {

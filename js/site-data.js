@@ -2,7 +2,7 @@
  * 个人网站与智能简历核心数据源
  * 整合：电子科技大学本科 -> 港中深硕士 -> 港中深表情机器人研助 -> 科大讯飞运营技术支持 -> 核心项目与产品实践
  */
-const DEFAULT_SITE_DATA = {
+window.DEFAULT_SITE_DATA = {
   profile: {
     name: "赵铖城",
     nameEn: "Chengcheng Zhao",
