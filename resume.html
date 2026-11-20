@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赵铖城 - 标准求职简历 (Curriculum Vitae)</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/print.css">
+
+  <style>
+    /* 网页端预览简历时的包装纸张效果 */
+    body {
+      background-color: #EFECE6;
+      padding: 24px 0 60px;
+    }
+
+    .print-bar {
+      position: sticky;
+      top: 16px;
+      z-index: 200;
+      max-width: 860px;
+      margin: 0 auto 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .resume-sheet {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 44px 50px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+      color: #1A1A1A;
+      font-size: 10pt;
+      line-height: 1.5;
+    }
+
+    /* 简历各区块 */
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #1A1A1A;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .cv-name {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 4px;
+    }
+
+    .cv-target {
+      font-size: 0.95rem;
+      color: #444;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .cv-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.88rem;
+      color: #444;
+    }
+
+    .cv-avatar {
+      width: 82px;
+      height: 108px;
+      object-fit: cover;
+      border: 1px solid #CCC;
+      border-radius: 3px;
+    }
+
+    .cv-section-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #1A1A1A;
+      border-bottom: 1px solid #333;
+      padding-bottom: 4px;
+      margin-top: 18px;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .cv-item {
+      margin-bottom: 14px;
+    }
+
+    .cv-item-head {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.98rem;
+      color: #111;
+      margin-bottom: 3px;
+    }
+
+    .cv-item-sub {
+      font-size: 0.88rem;
+      color: #444;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .cv-bullets {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .cv-bullets li {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: #222;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 网页顶端操作条（打印时自动隐藏） -->
+  <div class="print-bar no-print">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="index.html" class="btn btn-outline btn-sm">&larr; 返回个人主页</a>
+      <span style="font-size: 0.88rem; color: var(--text-muted);">| 标准 HR 筛选排版</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="admin.html" class="btn btn-outline btn-sm">✏️ 修改经历数据</a>
+      <button onclick="window.print()" class="btn btn-primary btn-sm">🖨️ 打印 / 导出 PDF</button>
+    </div>
+  </div>
+
+  <!-- A4 简历纸张容器 -->
+  <div class="resume-sheet" id="resume-content">
+    
+    <!-- 头部：个人基本信息与正装照 -->
+    <header class="cv-header">
+      <div>
+        <h1 class="cv-name" id="cv-name">赵铖城</h1>
+        <div class="cv-target" id="cv-target">求职意向：AI 产品经理 / 消费电子与机器人产品经理 / 智能硬件实习生</div>
+        <div class="cv-contacts">
+          <span>📞 <strong id="cv-phone">153-7819-8229</strong></span>
+          <span>✉️ <strong id="cv-email">zhaochengcheng2004@163.com</strong></span>
+          <span>📍 深圳 / 广州</span>
+          <span>🐙 github.com/laid966</span>
+        </div>
+      </div>
+      <div>
+        <img src="assets/images/avatar.jpg" alt="赵铖城 正装照" class="cv-avatar" id="cv-avatar">
+      </div>
+    </header>
+
+    <!-- 教育背景 -->
+    <section>
+      <div class="cv-section-title">教育背景 / EDUCATION</div>
+      <div id="cv-education-list">
+        <!-- JS 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 实习与工作经历 -->
+    <section>
+      <div class="cv-section-title">工作与实习经历 / EXPERIENCE</div>
+      <div id="cv-experience-list">
+        <!-- JS 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 核心项目与产品实践 -->
+    <section>
+      <div class="cv-section-title">核心项目经历 / PROJECTS</div>
+      <div id="cv-projects-list">
+        <!-- JS 动态注入 -->
+      </div>
+    </section>
+
+    <!-- 专业技能与证书 -->
+    <section>
+      <div class="cv-section-title">专业能力与资质 / SKILLS & COMPETENCIES</div>
+      <div id="cv-skills-list" style="font-size: 0.88rem; line-height: 1.6;">
+        <!-- JS 动态注入 -->
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/site-data.js"></script>
+  <script src="js/data-manager.js"></script>
+  <script src="js/resume.js"></script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理与简历智能导入中心 - 赵铖城</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    body {
+      background-color: var(--bg-subtle);
+      padding: 30px 0 80px;
+    }
+
+    .admin-container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-subtle);
+      overflow: hidden;
+    }
+
+    .admin-topbar {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FAF8F5;
+    }
+
+    .admin-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .admin-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      background: #FFFFFF;
+      overflow-x: auto;
+    }
+
+    .admin-tab {
+      padding: 14px 22px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .admin-tab:hover {
+      color: var(--text-primary);
+    }
+
+    .admin-tab.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+      font-weight: 600;
+      background: #FAF9F6;
+    }
+
+    .admin-panel {
+      padding: 32px 36px;
+      display: none;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
+
+    /* 表单控件 */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      color: var(--text-primary);
+      transition: border-color 0.15s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--border-focus);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* 卡片条目列表 */
+    .entry-card {
+      background: #FAF9F6;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .entry-delete-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #FEE2E2;
+      color: #991B1B;
+      border: none;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    /* 浮动操作条 */
+    .admin-action-bar {
+      padding: 18px 36px;
+      background: #FAF8F5;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .alert-banner {
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .alert-banner.success {
+      background: var(--success-bg);
+      color: var(--success-color);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- 顶栏 -->
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-title">⚡ 个人资料与智能简历后台管理</div>
+        <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
+          修改内容即刻保存在浏览器本地并实时反映在主页与简历中；支持导出代码提交至 GitHub 永久生效
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <a href="index.html" class="btn btn-outline btn-sm">🌐 查看主页</a>
+        <a href="resume.html" class="btn btn-outline btn-sm">📄 查看简历</a>
+      </div>
+    </div>
+
+    <!-- 标签导航 -->
+    <div class="admin-tabs">
+      <div class="admin-tab active" data-target="tab-profile">基本信息 & 头像</div>
+      <div class="admin-tab" data-target="tab-education">教育背景</div>
+      <div class="admin-tab" data-target="tab-experience">实习经历</div>
+      <div class="admin-tab" data-target="tab-projects">代表作品</div>
+      <div class="admin-tab" data-target="tab-import">🤖 智能导入 (领英/大厂简历)</div>
+      <div class="admin-tab" data-target="tab-export">💾 导出与备份</div>
+    </div>
+
+    <!-- 提示栏 -->
+    <div style="padding: 0 36px; margin-top: 20px;">
+      <div id="status-alert" class="alert-banner"></div>
+    </div>
+
+    <!-- 面板 1: 基本资料 -->
+    <div class="admin-panel active" id="tab-profile">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">姓名</label>
+          <input type="text" id="prof-name" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">英文名 / 拼音</label>
+          <input type="text" id="prof-name-en" class="form-input">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">求职意向 / 头衔</label>
+          <input type="text" id="prof-title" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">求职状态徽标</label>
+          <input type="text" id="prof-status" class="form-input">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">联系电话</label>
+          <input type="text" id="prof-phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">联系邮箱</label>
+          <input type="text" id="prof-email" class="form-input">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">所在城市 / 意向地点</label>
+          <input type="text" id="prof-location" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">正装照相对路径或图片 URL</label>
+          <input type="text" id="prof-avatar" class="form-input">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">副标题 (Hero 强调语)</label>
+        <input type="text" id="prof-subtitle" class="form-input">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">个人深度定位与背景简介 (每行一段)</label>
+        <textarea id="prof-bio" class="form-textarea" rows="4"></textarea>
+      </div>
+    </div>
+
+    <!-- 面板 2: 教育经历 -->
+    <div class="admin-panel" id="tab-education">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 0.95rem; font-weight: 600;">教育经历列表</span>
+        <button id="add-edu-btn" class="btn btn-outline btn-sm">+ 新增教育经历</button>
+      </div>
+      <div id="edu-entries-list">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+
+    <!-- 面板 3: 实习与工作经历 -->
+    <div class="admin-panel" id="tab-experience">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 0.95rem; font-weight: 600;">实习经历列表</span>
+        <button id="add-exp-btn" class="btn btn-outline btn-sm">+ 新增实习经历</button>
+      </div>
+      <div id="exp-entries-list">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+
+    <!-- 面板 4: 代表作品 -->
+    <div class="admin-panel" id="tab-projects">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 0.95rem; font-weight: 600;">项目与代表作品列表</span>
+        <button id="add-proj-btn" class="btn btn-outline btn-sm">+ 新增作品</button>
+      </div>
+      <div id="proj-entries-list">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+
+    <!-- 面板 5: 智能导入 (互通领英/大厂) -->
+    <div class="admin-panel" id="tab-import">
+      <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.15rem; margin-bottom: 6px;">🤖 领英 / 大厂招聘平台资料智能导入</h3>
+        <p style="font-size: 0.88rem; color: var(--text-secondary);">
+          直接将您在 <strong>LinkedIn (领英)</strong> 导出的简历文本、<strong>BOSS直聘/猎聘</strong>或腾讯、阿里等<strong>大厂校招系统</strong>中填写的纯文本简历粘贴在下方，点击“智能解析”，系统将自动抽取姓名、电话、邮箱、毕业院校与实习项目，填充至对应栏目！
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">粘贴外部简历纯文本 / 导出的 JSON：</label>
+        <textarea id="import-raw-text" class="form-textarea" rows="10" placeholder="例如：&#10;赵铖城&#10;电话：15378198229 邮箱：zhaochengcheng2004@163.com&#10;2026.09 - 2028.06 香港中文大学（深圳）通信工程 硕士&#10;2022.08 - 2026.06 电子科技大学 通信工程 本科&#10;2026.04 - 2026.09 香港中文大学（深圳）表情机器人团队 研究助理..."></textarea>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <button id="smart-parse-btn" class="btn btn-primary">⚡ 开始智能解析并填充</button>
+        <button id="clear-import-btn" class="btn btn-outline">清空输入</button>
+      </div>
+
+      <div id="import-result-box" style="margin-top: 20px; font-size: 0.88rem;"></div>
+    </div>
+
+    <!-- 面板 6: 导出与代码生成 -->
+    <div class="admin-panel" id="tab-export">
+      <h3 style="font-size: 1.15rem; margin-bottom: 8px;">💾 数据备份与发布至线上</h3>
+      <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+        在本地修改保存后，您可直接下载 JSON 备份，或点击“复制 site-data.js 完整代码”，将其覆盖本地文件并 <code>git push</code>，即可让所有访客永久看到您的最新修改！
+      </p>
+
+      <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+        <button id="download-json-btn" class="btn btn-outline">📥 下载 site-data.json 备份</button>
+        <button id="copy-js-btn" class="btn btn-primary">📋 复制 site-data.js 代码</button>
+        <button id="reset-default-btn" class="btn btn-outline" style="color: #991B1B; border-color: #FCA5A5;">⚠️ 恢复初始数据</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">当前生成的数据代码预览 (可直接全选覆盖 js/site-data.js)：</label>
+        <textarea id="code-preview" class="form-textarea" rows="12" readonly style="font-family: var(--font-mono); font-size: 0.8rem; background: #FAF9F6;"></textarea>
+      </div>
+    </div>
+
+    <!-- 底部保存条 -->
+    <div class="admin-action-bar">
+      <span style="font-size: 0.85rem; color: var(--text-muted);">
+        修改完成后，点击右侧按钮在本地即刻生效：
+      </span>
+      <div style="display: flex; gap: 10px;">
+        <button id="save-all-btn" class="btn btn-primary">💾 保存并即刻在主页与简历生效</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/site-data.js"></script>
+  <script src="js/data-manager.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

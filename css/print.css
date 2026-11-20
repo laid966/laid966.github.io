@@ -1,0 +1,110 @@
+/* ==========================================================================
+   A4 纸张矢量级打印样式 (Print Optimized CSS)
+   目标：完全隐藏网页导航与操作按钮，消除屏幕阴影，按标准纸质排版单页/双页
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 12mm 14mm 12mm 14mm;
+}
+
+@media print {
+  /* 隐藏所有网页交互控件 */
+  .no-print,
+  .site-header,
+  .site-footer,
+  .filter-tabs,
+  .btn,
+  .admin-bar,
+  .print-action-bar,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  body, html {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.45 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* 简历头部与头像 */
+  .resume-header {
+    border-bottom: 1.5pt solid #000000 !important;
+    padding-bottom: 8pt !important;
+    margin-bottom: 10pt !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .resume-avatar {
+    width: 22mm !important;
+    height: 29mm !important;
+    object-fit: cover !important;
+    border: 0.5pt solid #888888 !important;
+    border-radius: 2px !important;
+  }
+
+  /* 模块标题 */
+  .resume-section-title {
+    font-size: 11.5pt !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    border-bottom: 1pt solid #333333 !important;
+    padding-bottom: 2pt !important;
+    margin-top: 10pt !important;
+    margin-bottom: 6pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5pt !important;
+  }
+
+  .resume-item {
+    page-break-inside: avoid !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .resume-item-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-weight: 600 !important;
+    font-size: 10.5pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  .resume-item-sub {
+    font-size: 9.5pt !important;
+    color: #333333 !important;
+    margin-bottom: 3pt !important;
+    font-weight: 500 !important;
+  }
+
+  .resume-bullets {
+    padding-left: 14pt !important;
+    margin: 0 !important;
+  }
+
+  .resume-bullets li {
+    font-size: 9.2pt !important;
+    line-height: 1.4 !important;
+    margin-bottom: 2pt !important;
+    color: #111111 !important;
+  }
+
+  /* 保证打印文字极清 */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
