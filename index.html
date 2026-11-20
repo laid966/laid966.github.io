@@ -3,194 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>赵铖城 (Chengcheng Zhao) | 个人主页 & 作品集</title>
-  <meta name="description" content="赵铖城个人官方主页，电子科技大学本科、香港中文大学（深圳）硕士，专注 AI、消费电子与机器人产品经理。具备软硬件协同研发功底与大模型评测落地经验。">
+  <title>赵铖城 (Chengcheng Zhao) | AI · 消费电子 · 机器人产品经理</title>
+  <meta name="description" content="赵铖城个人官方主页：电子科技大学通信工程本科、香港中文大学（深圳）硕士在读，专注 AI、消费电子与机器人产品方向，具备软硬件协同研发功底与大模型评测落地经验。">
   <meta name="keywords" content="赵铖城, Chengcheng Zhao, AI产品经理, 机器人产品经理, 消费电子, Prompt评测, RAG, 嵌入式开发">
-  
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <meta property="og:title" content="赵铖城 (Chengcheng Zhao) | 个人主页 & 作品集">
+  <meta property="og:description" content="懂硬件的工程背景，正在用工程师的方法做 AI 产品。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://laid966.github.io/">
+  <meta property="og:image" content="https://laid966.github.io/assets/images/avatar.jpg">
 
-  <!-- 样式文件 -->
+  <link rel="icon" href="assets/images/avatar.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="assets/images/avatar.jpg">
+
+  <!-- Geist 字体（参考 umutxyp/Personal-Website 的 once-ui 设计语言） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- 主题初始化（light / dark / system，与参考站一致存于 localStorage data-theme） -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('data-theme');
+        var theme = saved || 'system';
+        if (theme === 'system') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/print.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "赵铖城",
+    "alternateName": "Chengcheng Zhao",
+    "email": "mailto:zhaochengcheng2004@163.com",
+    "telephone": "+86-153-7819-8229",
+    "jobTitle": "AI / 消费电子 / 机器人产品经理",
+    "url": "https://laid966.github.io/",
+    "image": "https://laid966.github.io/assets/images/avatar.jpg",
+    "sameAs": [
+      "https://github.com/laid966",
+      "https://www.linkedin.com/in/laid966"
+    ],
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "香港中文大学（深圳）" },
+      { "@type": "CollegeOrUniversity", "name": "电子科技大学" }
+    ]
+  }
+  </script>
 </head>
 <body>
 
-  <!-- 顶部常驻导航栏 -->
+  <!-- 顶部毛玻璃导航 -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-area">
+        <img src="assets/images/avatar.jpg" alt="赵铖城头像" class="brand-avatar" id="header-avatar">
         <span class="brand-name" id="nav-brand-name">赵铖城</span>
-        <span class="brand-badge" id="nav-brand-status">🟢 寻找实习</span>
       </div>
 
       <nav>
         <ul class="nav-links">
-          <li><a href="#about" class="nav-link">关于我</a></li>
           <li><a href="#education" class="nav-link">教育背景</a></li>
           <li><a href="#experience" class="nav-link">实习经历</a></li>
           <li><a href="#projects" class="nav-link">代表作品</a></li>
           <li><a href="#skills" class="nav-link">技能栈</a></li>
-          <li><a href="#contact" class="nav-link">联系方式</a></li>
+          <li><a href="#contact" class="nav-link">联系</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
-        <a href="resume.html" class="btn btn-outline btn-sm" title="查看标准简历排版并打印">📄 在线简历</a>
+        <button class="icon-btn" id="theme-toggle" title="切换深浅主题" aria-label="切换深浅主题">🌙</button>
+        <a href="resume.html" class="btn btn-secondary btn-sm">📄 在线简历</a>
       </div>
     </div>
   </header>
 
-  <!-- 主体容器 -->
+  <!-- 移动端底部悬浮导航 -->
+  <nav class="mobile-nav">
+    <a href="#education">教育</a>
+    <a href="#experience">经历</a>
+    <a href="#projects">作品</a>
+    <a href="#skills">技能</a>
+    <a href="resume.html">简历</a>
+  </nav>
+
   <main class="container">
 
-    <!-- Hero 首屏区域 -->
+    <!-- Hero：居中排版 -->
     <section class="hero-section" id="about">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <div class="hero-tag" id="hero-tag">PORTFOLIO & CURRICULUM VITAE</div>
-          <h1 class="hero-title serif-heading" id="hero-name">赵铖城</h1>
-          <div class="hero-subtitle" id="hero-subtitle">通信工程背景 × 软硬件研发协同 × AI 评测与落地实践</div>
-          
-          <div class="hero-bio" id="hero-bio">
-            <!-- 由 JS 渲染个人介绍段落 -->
-          </div>
+      <div class="hero-badge reveal" id="hero-badge">🟢 寻找日常/长期实习 · 随时到岗</div>
+      <h1 class="hero-title reveal" id="hero-name">赵铖城</h1>
+      <p class="hero-subline reveal" id="hero-subline">通信工程背景 × 软硬件研发协同 × AI 评测与落地实践</p>
 
-          <div class="hero-meta">
-            <span class="meta-item">📍 <span id="meta-location">深圳 / 广州 / 北京</span></span>
-            <span class="meta-item">🎓 <span id="meta-degree">港中深 硕士在读</span></span>
-            <span class="meta-item">✉️ <a href="mailto:zhaochengcheng2004@163.com" id="meta-email">zhaochengcheng2004@163.com</a></span>
-            <span class="meta-item">📱 <span id="meta-phone">153-7819-8229</span></span>
-          </div>
+      <div class="hero-bio reveal" id="hero-bio"></div>
 
-          <div style="margin-top: 16px; display: flex; gap: 12px;">
-            <a href="resume.html" class="btn btn-primary">📄 打印/下载标准简历 PDF</a>
-            <a href="#contact" class="btn btn-outline">🤝 获取联系方式</a>
-          </div>
-        </div>
+      <div class="hero-meta reveal" id="hero-meta"></div>
 
-        <div class="hero-avatar-wrapper">
-          <img src="assets/images/avatar.jpg" alt="赵铖城 正装照" class="hero-avatar" id="hero-avatar-img">
-          <div class="avatar-caption">赵铖城 · Chengcheng Zhao</div>
-        </div>
+      <div class="hero-cta reveal">
+        <a href="resume.html" class="btn btn-secondary" id="cta-resume">
+          <img src="assets/images/avatar.jpg" alt="" class="btn-avatar">
+          查看标准简历 & 导出 PDF
+        </a>
+        <a href="mailto:zhaochengcheng2004@163.com" class="btn btn-primary" id="cta-email">✉️ 邮件联系我</a>
       </div>
 
-      <!-- 核心指标摘要条 -->
-      <div class="highlights-bar" id="highlights-container">
-        <!-- 由 JS 渲染 -->
-      </div>
+      <div class="highlights-bar reveal" id="highlights-container"></div>
     </section>
 
-    <!-- 教育经历 -->
-    <section class="section" id="education">
-      <div class="section-header">
-        <div>
-          <div class="section-num">01 / ACADEMIC BACKGROUND</div>
-          <h2 class="section-title serif-heading">教育经历</h2>
-          <div class="section-desc">扎实的通信系统、信号处理理论与前沿智能算法研究基础</div>
-        </div>
-      </div>
+    <div class="line-divider"></div>
 
-      <div class="timeline-list" id="education-container">
-        <!-- 由 JS 渲染 -->
+    <!-- 教育背景 -->
+    <section class="section reveal" id="education">
+      <div class="section-header">
+        <div class="section-label">01 / Academic Background</div>
+        <h2 class="section-title">教育背景</h2>
+        <div class="section-desc">扎实的通信系统、信号处理理论与前沿智能算法研究基础</div>
       </div>
+      <div class="timeline-list" id="education-container"></div>
     </section>
 
-    <!-- 工作与实习经历 -->
-    <section class="section" id="experience">
-      <div class="section-header">
-        <div>
-          <div class="section-num">02 / WORK & INTERNSHIP</div>
-          <h2 class="section-title serif-heading">核心工作与实习经历</h2>
-          <div class="section-desc">深入前沿机器人研发团队与大厂业务运营一线，具备从技术拆解到产品商业落地的闭环能力</div>
-        </div>
-      </div>
+    <div class="line-divider"></div>
 
-      <div class="timeline-list" id="experience-container">
-        <!-- 由 JS 渲染 -->
+    <!-- 实习与工作经历 -->
+    <section class="section reveal" id="experience">
+      <div class="section-header">
+        <div class="section-label">02 / Work & Internship</div>
+        <h2 class="section-title">核心工作与实习经历</h2>
+        <div class="section-desc">深入前沿机器人研发团队与大厂业务运营一线，具备从技术拆解到产品商业落地的闭环能力</div>
       </div>
+      <div class="timeline-list" id="experience-container"></div>
     </section>
 
-    <!-- 精选代表作品 -->
-    <section class="section" id="projects">
+    <div class="line-divider"></div>
+
+    <!-- 代表作品 -->
+    <section class="section reveal" id="projects">
       <div class="section-header">
-        <div>
-          <div class="section-num">03 / FEATURED PROJECTS</div>
-          <h2 class="section-title serif-heading">精选代表作品 & 项目集</h2>
-          <div class="section-desc">涵盖 AI Prompt 评测、Agent 架构设计、全套交互设计与软硬件系统联调</div>
-        </div>
+        <div class="section-label">03 / Featured Projects</div>
+        <h2 class="section-title">精选代表作品</h2>
+        <div class="section-desc">涵盖 AI Prompt 评测、Agent 架构设计、全套交互设计与软硬件系统联调</div>
       </div>
 
-      <!-- 分类切换标签 -->
       <div class="filter-tabs">
-        <button class="tab-btn active" data-filter="all">全部代表作</button>
+        <button class="tab-btn active" data-filter="all">全部</button>
         <button class="tab-btn" data-filter="ai-pm">AI 产品 & 大模型评测</button>
         <button class="tab-btn" data-filter="product-design">UI/UX & 产品设计</button>
-        <button class="tab-btn" data-filter="hardware">软硬件开发 & 算法</button>
+        <button class="tab-btn" data-filter="hardware">软硬件 & 算法</button>
       </div>
 
-      <div class="project-grid" id="projects-container">
-        <!-- 由 JS 渲染 -->
-      </div>
+      <div class="project-grid" id="projects-container"></div>
     </section>
 
-    <!-- 专业技能与方法论 -->
-    <section class="section" id="skills">
-      <div class="section-header">
-        <div>
-          <div class="section-num">04 / SKILLS & COMPETENCIES</div>
-          <h2 class="section-title serif-heading">技能矩阵与方法论</h2>
-          <div class="section-desc">兼具产品规划敏锐度与工程落地硬实力的复合技能结构</div>
-        </div>
-      </div>
+    <div class="line-divider"></div>
 
-      <div class="skills-grid" id="skills-container">
-        <!-- 由 JS 渲染 -->
+    <!-- 技能 -->
+    <section class="section reveal" id="skills">
+      <div class="section-header">
+        <div class="section-label">04 / Skills & Competencies</div>
+        <h2 class="section-title">技能矩阵与方法论</h2>
+        <div class="section-desc">兼具产品规划敏锐度与工程落地硬实力的复合技能结构</div>
       </div>
+      <div class="skills-grid" id="skills-container"></div>
     </section>
 
-    <!-- 联系与社交互通 -->
-    <section class="section" id="contact" style="border-bottom: none;">
-      <div class="section-header">
-        <div>
-          <div class="section-num">05 / GET IN TOUCH</div>
-          <h2 class="section-title serif-heading">联系与合作</h2>
-          <div class="section-desc">欢迎随时交流探讨产品与技术机会，支持各大平台快速对接</div>
-        </div>
-      </div>
+    <div class="line-divider"></div>
 
-      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; box-shadow: var(--shadow-subtle);">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
-          <div>
-            <h4 style="font-size: 1.1rem; margin-bottom: 8px;">直接联系</h4>
-            <p style="font-size: 0.92rem; margin-bottom: 6px;">📞 电话 / 微信同号：<strong>153-7819-8229</strong></p>
-            <p style="font-size: 0.92rem; margin-bottom: 6px;">✉️ 电子邮箱：<strong>zhaochengcheng2004@163.com</strong></p>
-            <p style="font-size: 0.92rem;">📍 期望工作地点：深圳 / 广州 / 北京 / 远程</p>
-          </div>
-          <div>
-            <h4 style="font-size: 1.1rem; margin-bottom: 8px;">专业与社交主页</h4>
-            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem;">
-              <a href="https://github.com/laid966" target="_blank" rel="noopener">🐙 GitHub: laid966</a>
-              <a href="resume.html" target="_blank">📄 在线标准简历与 PDF 导出</a>
-            </div>
-          </div>
+    <!-- 联系 -->
+    <section class="section reveal" id="contact">
+      <div class="contact-card">
+        <div class="section-label" style="margin-bottom: 8px;">05 / Get in Touch</div>
+        <h2 class="section-title">联系与合作</h2>
+        <p style="color: var(--on-bg-weak); font-size: 0.95rem; margin-top: 8px;">欢迎随时交流产品与技术机会</p>
+        <div class="contact-grid">
+          <span class="meta-pill">📞 <span id="contact-phone">153-7819-8229</span></span>
+          <span class="meta-pill">✉️ <a href="mailto:zhaochengcheng2004@163.com" id="contact-email">zhaochengcheng2004@163.com</a></span>
+          <span class="meta-pill">📍 <span id="contact-location">深圳 / 广州 / 北京</span></span>
+          <span class="meta-pill"><a href="https://github.com/laid966" target="_blank" rel="noopener" id="contact-github">🐙 GitHub</a></span>
+          <span class="meta-pill"><a href="resume.html">📄 标准简历</a></span>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- 作品详情弹窗 Modal -->
+  <!-- 作品详情模态框 -->
   <div class="modal-overlay" id="project-modal">
     <div class="modal-container">
-      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
-      <div id="modal-content">
-        <!-- JS 动态填入详情 -->
-      </div>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="关闭">&times;</button>
+      <div id="modal-content"></div>
     </div>
   </div>
 
-  <!-- 页脚 -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
@@ -199,13 +212,12 @@
         <a href="#experience">经历</a>
         <a href="#projects">作品</a>
         <a href="resume.html">简历</a>
-        <a href="https://github.com/laid966" target="_blank">GitHub</a>
+        <a href="https://github.com/laid966" target="_blank" rel="noopener">GitHub</a>
       </div>
-      <p>© 2026 赵铖城 (Chengcheng Zhao). All Rights Reserved. Powered by Clean Editorial Style & GitHub Pages.</p>
+      <p>© 2026 赵铖城 (Chengcheng Zhao) · UI design language inspired by umutxyp/Personal-Website (once-ui) · Hosted on GitHub Pages</p>
     </div>
   </footer>
 
-  <!-- 脚本加载 -->
   <script src="js/site-data.js"></script>
   <script src="js/data-manager.js"></script>
   <script src="js/main.js"></script>

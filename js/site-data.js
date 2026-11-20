@@ -34,7 +34,7 @@ window.DEFAULT_SITE_DATA = {
       degree: "硕士在读 · 通信工程",
       period: "2026.09 - 2028.06",
       location: "深圳",
-      logo: "assets/images/cuhksz_badge.png",
+      logo: "assets/images/cuhksz_logo_official.png",
       gpa: "",
       courses: "随机过程、数据分析（CIE6006/MCE5918）、机器人先进感知与控制",
       highlights: [
@@ -48,7 +48,7 @@ window.DEFAULT_SITE_DATA = {
       degree: "工学学士 · 通信工程",
       period: "2022.08 - 2026.06",
       location: "成都",
-      logo: "assets/images/uestc_badge.png",
+      logo: "assets/images/uestc_logo_official.png",
       courses: "信号与系统、电磁场与波、随机信号分析、数字信号处理、微机原理",
       highlights: [
         "荣誉奖项：全国大学生数学竞赛 省级二等奖",

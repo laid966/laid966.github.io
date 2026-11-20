@@ -11,7 +11,7 @@
   <style>
     /* 网页端预览简历时的包装纸张效果 */
     body {
-      background-color: #EFECE6;
+      background-color: var(--page-background);
       padding: 24px 0 60px;
     }
 
@@ -21,15 +21,16 @@
       z-index: 200;
       max-width: 860px;
       margin: 0 auto 20px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       padding: 12px 20px;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-m);
     }
 
     .resume-sheet {
