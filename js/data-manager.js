@@ -6,21 +6,65 @@
 window.STORAGE_KEY = "ZC_PORTFOLIO_SITE_DATA_V1";
 
 window.DataManager = {
+  // 辅助函数：根据起止日期将经历数组按最新时间排在最前
+  sortChronological(items) {
+    if (!Array.isArray(items)) return [];
+    return [...items].sort((a, b) => {
+      // 提取最新的年份和月份（优先匹配 endDate，若为'至今'/'现在'/'在读'/'在职'则权重大于一切）
+      const getScore = (periodStr) => {
+        if (!periodStr) return 0;
+        const str = String(periodStr).toLowerCase();
+        if (str.includes("至今") || str.includes("现在") || str.includes("在读") || str.includes("在职") || str.includes("present")) {
+          // 当前进行中的经历拥有最高权重，进一步按开始年份微调
+          const startMatch = str.match(/(20\d{2})[.\-/]?(\d{1,2})?/);
+          const startYear = startMatch ? parseInt(startMatch[1]) * 100 + (parseInt(startMatch[2]) || 1) : 0;
+          return 999900 + startYear;
+        }
+        // 查找所有出现的年份.月份，以出现的最晚日期作为排序基准
+        const matches = [...str.matchAll(/(20\d{2})[.\-/](\d{1,2})/g)];
+        if (matches.length > 0) {
+          const last = matches[matches.length - 1];
+          return parseInt(last[1]) * 100 + parseInt(last[2]);
+        }
+        const yearMatches = [...str.matchAll(/(20\d{2})/g)];
+        if (yearMatches.length > 0) {
+          const lastYear = yearMatches[yearMatches.length - 1];
+          return parseInt(lastYear[1]) * 100;
+        }
+        return 0;
+      };
+      return getScore(b.period) - getScore(a.period);
+    });
+  },
+
   // 获取当前数据（优先 LocalStorage，降级 DEFAULT_SITE_DATA）
   getData() {
+    let data;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && parsed.profile && parsed.experience) {
-          return parsed;
+          data = parsed;
         }
       }
     } catch (e) {
       console.warn("读取 localStorage 失败，使用默认数据", e);
     }
-    // 返回深拷贝的默认数据
-    return JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+    if (!data) {
+      data = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+    }
+    // 强制保证经历与教育经历严格按“最近的时间排在最前面”
+    if (data.experience) {
+      data.experience = this.sortChronological(data.experience);
+    }
+    if (data.education) {
+      data.education = this.sortChronological(data.education);
+    }
+    if (data.projects) {
+      data.projects = this.sortChronological(data.projects);
+    }
+    return data;
   },
 
   // 保存数据到 LocalStorage

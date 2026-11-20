@@ -72,9 +72,12 @@ function renderEducation(educationList) {
   container.innerHTML = educationList.map(edu => `
     <div class="timeline-card">
       <div class="card-header-row">
-        <div>
-          <div class="role-title">${escapeHTML(edu.institution)}</div>
-          <div class="company-name">${escapeHTML(edu.degree)}</div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          ${edu.logo ? `<img src="${escapeAttr(edu.logo)}" alt="${escapeAttr(edu.institution)} 校徽" class="edu-logo-badge">` : ""}
+          <div>
+            <div class="role-title">${escapeHTML(edu.institution)}</div>
+            <div class="company-name">${escapeHTML(edu.degree)}</div>
+          </div>
         </div>
         <div class="period-badge">${escapeHTML(edu.period)}</div>
       </div>
@@ -243,4 +246,9 @@ function escapeHTML(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function escapeAttr(str) {
+  if (!str) return "";
+  return String(str).replace(/"/g, "&quot;");
 }

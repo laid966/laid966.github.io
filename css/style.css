@@ -401,6 +401,17 @@ a:hover {
   color: var(--text-primary);
 }
 
+.edu-logo-badge {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #FFFFFF;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
 .company-name {
   font-size: 1rem;
   font-weight: 500;

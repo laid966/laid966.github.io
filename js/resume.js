@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
   eduContainer.innerHTML = (data.education || []).map(edu => `
     <div class="cv-item">
       <div class="cv-item-head">
-        <span>${escapeHTML(edu.institution)} · ${escapeHTML(edu.degree)}</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          ${edu.logo ? `<img src="${escapeAttr(edu.logo)}" alt="校徽" style="width: 22px; height: 22px; object-fit: contain; vertical-align: middle;">` : ""}
+          <span>${escapeHTML(edu.institution)} · ${escapeHTML(edu.degree)}</span>
+        </span>
         <span style="font-weight: 500; font-size: 0.88rem;">${escapeHTML(edu.period)}</span>
       </div>
       ${edu.courses ? `<div class="cv-item-sub">主修课程：${escapeHTML(edu.courses)}</div>` : ""}
@@ -82,4 +85,9 @@ function escapeHTML(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function escapeAttr(str) {
+  if (!str) return "";
+  return String(str).replace(/"/g, "&quot;");
 }
