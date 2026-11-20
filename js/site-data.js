@@ -23,7 +23,7 @@ window.DEFAULT_SITE_DATA = {
     highlights: [
       { label: "最高学历", value: "港中深 硕士在读" },
       { label: "本硕专业", value: "通信工程（双一流/港中深）" },
-      { label: "研发与业务实习", value: "2 段深厚经历（讯飞/港中深）" },
+      { label: "研发与业务实习", value: "3 段（韶音 / 港中深 / 讯飞）" },
       { label: "软硬件与AI代表作", value: "5+ 项从0到1完整实践" }
     ]
   },
@@ -58,6 +58,20 @@ window.DEFAULT_SITE_DATA = {
     }
   ],
   experience: [
+    {
+      id: "exp-shokz",
+      role: "AI 产品实习生",
+      company: "韶音科技 (Shokz)",
+      period: "2026 - 至今",
+      location: "深圳",
+      tag: "AI 产品 / 消费电子 / 开放式耳机",
+      summary: "（本段经历为预留位置：具体职责与量化成果待补充，可在后台 /admin.html 直接编辑本卡片后保存。）",
+      responsibilities: [
+        "待补充：参与开放式耳机端侧 AI 功能（语音助手 / AI 通话体验 / 内容生成）的需求定义与体验评测；",
+        "待补充：搭建竞品 AI 功能对标与评测集（已沉淀韶音 OpenFit 2 AI 竞品分析报告）；",
+        "待补充：协同算法与硬件团队推进端侧 AI 能力落地、体验指标与成本优化。"
+      ]
+    },
     {
       id: "exp-cuhksz-robot",
       role: "研究助理（硬件电控负责人 & 产品推进）",

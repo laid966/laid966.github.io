@@ -25,6 +25,12 @@ function renderProfile(profile) {
     document.getElementById("header-avatar").src = profile.avatar;
     const btnAvatar = document.querySelector("#cta-resume .btn-avatar");
     if (btnAvatar) btnAvatar.src = profile.avatar;
+    const portraitImg = document.getElementById("hero-portrait-img");
+    if (portraitImg) portraitImg.src = profile.avatar;
+  }
+  const caption = document.getElementById("hero-portrait-caption");
+  if (caption) {
+    caption.textContent = `${profile.name || ""}${profile.nameEn ? ` · ${profile.nameEn}` : ""}`;
   }
 
   document.getElementById("hero-badge").textContent = profile.statusBadge || "🟢 寻找实习";
