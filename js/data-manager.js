@@ -3,7 +3,7 @@
  * 优先从 localStorage 读取数据，若无则使用 site-data.js 默认数据
  * 提供导入解析器（支持 LinkedIn、大厂简历纯文本、JSON 格式）、本地保存与重置
  */
-window.STORAGE_KEY = "ZC_PORTFOLIO_SITE_DATA_V1";
+window.STORAGE_KEY = "ZC_PORTFOLIO_SITE_DATA_V2";
 
 window.DataManager = {
   // 辅助函数：根据起止日期将经历数组按最新时间排在最前
@@ -53,6 +53,15 @@ window.DataManager = {
     }
     if (!data) {
       data = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+    }
+    // 将默认数据中新增的字段（如校徽 logo）按 id 补齐到旧本地缓存，避免旧缓存遮盖新内容
+    if (data.education && DEFAULT_SITE_DATA.education) {
+      data.education.forEach(entry => {
+        const def = DEFAULT_SITE_DATA.education.find(d => d.id === entry.id);
+        if (def) {
+          Object.keys(def).forEach(k => { if (entry[k] === undefined) entry[k] = def[k]; });
+        }
+      });
     }
     // 强制保证经历与教育经历严格按“最近的时间排在最前面”
     if (data.experience) {

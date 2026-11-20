@@ -2,6 +2,40 @@
  * 后台管理交互：表单双向绑定、动态条目增删、智能解析、数据导入导出
  */
 document.addEventListener("DOMContentLoaded", () => {
+  const lockScreen = document.getElementById("admin-lock-screen");
+  const adminContainer = document.querySelector(".admin-container");
+
+  const startAdmin = () => {
+    lockScreen.style.display = "none";
+    adminContainer.style.display = "";
+    initAdminPanel();
+  };
+
+  // 密码门：未解锁时只显示锁屏，禁止任何编辑操作
+  if (window.ADMIN_AUTH && !ADMIN_AUTH.isUnlocked()) {
+    lockScreen.style.display = "flex";
+    adminContainer.style.display = "none";
+    const passInput = document.getElementById("admin-pass-input");
+    const lockMsg = document.getElementById("admin-lock-msg");
+    const tryUnlock = async () => {
+      const ok = await ADMIN_AUTH.unlock(passInput.value);
+      if (ok) {
+        startAdmin();
+      } else {
+        lockMsg.textContent = "密码错误，请重试（本页仅对站长本人开放）。";
+        passInput.value = "";
+        passInput.focus();
+      }
+    };
+    document.getElementById("admin-unlock-btn").addEventListener("click", tryUnlock);
+    passInput.addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
+    return;
+  }
+
+  startAdmin();
+});
+
+function initAdminPanel() {
   let currentData = DataManager.getData();
 
   // 初始化标签页切换
@@ -100,7 +134,26 @@ document.addEventListener("DOMContentLoaded", () => {
       showAlert("已成功恢复初始简历数据。", "success");
     }
   });
-});
+
+  // 锁定后台（退出解锁状态）
+  document.getElementById("lock-admin-btn").addEventListener("click", () => {
+    if (window.ADMIN_AUTH) {
+      ADMIN_AUTH.lock();
+      location.reload();
+    }
+  });
+
+  // 生成新密码的哈希配置行
+  document.getElementById("gen-hash-btn").addEventListener("click", async () => {
+    const newPass = document.getElementById("new-pass-input").value;
+    if (!newPass) {
+      showAlert("请先输入新密码。", "success");
+      return;
+    }
+    const hash = await ADMIN_AUTH.sha256(newPass);
+    document.getElementById("hash-output").value = `codeHash: "${hash}",`;
+  });
+}
 
 // 标签页切换逻辑
 function initTabs() {
